@@ -45,19 +45,18 @@ class Train
     current_station.take_train(self)
   end
 
-  protected
-
-  # Методы, что нижt используются классами потомками CargoTrain и PassengerTrain, поэтому protected
-
-  def current_station
-    @route.stations[@current_station_index]
-  end
-
   def next_station
     @route.stations[@current_station_index + 1]
   end
 
   def previous_station
     @route.stations[@current_station_index - 1] unless @current_station_index.zero?
+  end
+
+  protected
+
+  # Метод, что ниже используеся классами потомками CargoTrain и PassengerTrain, поэтому protected
+  def current_station
+    @route.stations[@current_station_index]
   end
 end
