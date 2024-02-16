@@ -1,11 +1,11 @@
-class Railroad
-  require_relative('cargo_carriage')
-  require_relative('cargo_train')
-  require_relative('passenger_carriage')
-  require_relative('passenger_train')
-  require_relative('route')
-  require_relative('station')
+require_relative('cargo_carriage')
+require_relative('cargo_train')
+require_relative('passenger_carriage')
+require_relative('passenger_train')
+require_relative('route')
+require_relative('station')
 
+class Railroad
   MENU_METHODS = { 'Создать станцию' => 'create_station',
                    'Создать поезд' => 'create_train',
                    'Создать маршрут и управлять станциями в нем (добавлять, удалять)' => 'create_route',
@@ -15,6 +15,12 @@ class Railroad
                    'Переместить поезд по маршруту вперед и назад' => 'move_train',
                    'Просмотреть список станций и список поездов на станции' => 'station_trains',
                    'Выйти' => 'exit' }.freeze
+
+  def initialize
+    @stations = []
+    @trains = []
+    @routes = []
+  end
 
   def menu
     MENU_METHODS.each_with_index { |(key, _value), index| puts "#{index}. #{key}" }
@@ -27,7 +33,7 @@ class Railroad
   def create_station
     puts 'Введите название станции:'
     name = gets.chomp
-    (@stations ||= []) << Station.new(name)
+    @stations << Station.new(name)
     menu
   end
 
@@ -36,10 +42,10 @@ class Railroad
     case input_i
     when 0
       puts 'Номер поезда:'
-      (@trains ||= []) << CargoTrain.new(input_str)
+      @trains << CargoTrain.new(input_str)
     when 1
       puts 'Номер поезда:'
-      (@trains ||= []) << PassengerTrain.new(input_str)
+      @trains << PassengerTrain.new(input_str)
     end
     menu
   end
@@ -50,7 +56,7 @@ class Railroad
     puts 'Конечная станция:'
     station_last = choose_station
     route = Route.new(station_first, station_last)
-    (@routes ||= []) << route
+    @routes << route
     puts 'Управлять станциями в маршруте? 0: Да / 1: Нет'
     manage_stations_in_route(route) if input_i.zero?
     menu
@@ -69,11 +75,10 @@ class Railroad
     train = choose_train
     puts 'Сколько вагонов?'
     carriages_count = input_i
-    puts 'Какие вагоны цепляем: 0. грузовые / 1. пассажирские'
-    case input_i
-    when 0
+    case train.type
+    when 'cargo'
       carriages_count.times { train.take_carriage(CargoCarriage.new) }
-    when 1
+    when 'passenger'
       carriages_count.times { train.take_carriage(PassenegerCarriage.new) }
     end
     menu
