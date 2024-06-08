@@ -112,14 +112,31 @@ class Railroad
       case carriage.type
       when 'passenger'
         carriage.take_seat
+        seat_taken(carriage)
       when 'cargo'
         puts 'Какой объём занимаем?'
         carriage.take_volume(input_i)
+        volume_taken(carriage)
       end
     else
       puts 'К поезду еще не прицепили вагонов'
     end
     menu
+  end
+
+  def seat_taken(carriage)
+    puts "Место занято
+        Всего мест: #{carriage.total_seats_count}
+        Мест занято: #{carriage.taken_seats_count}
+        Мест осталось: #{carriage.empty_seats_count}
+        "
+  end
+
+  def volume_taken(carriage)
+    puts "Объём занят
+        Объём вагона: #{carriage.volume}
+        Свободный объём: #{carriage.empty_volume}
+        Занятый объём: #{carriage.taken_volume}"
   end
 
   def move_train

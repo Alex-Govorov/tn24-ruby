@@ -13,7 +13,7 @@ class PassengerCarriage < Carriage
 
   def take_seat
     first_empty_seat_index = @seats.find_index(false)
-    raise 'Все места заняты' unless first_empty_seat_index
+    raise ArgumentError, 'Все места заняты' unless first_empty_seat_index
 
     @seats[first_empty_seat_index] = true
   end

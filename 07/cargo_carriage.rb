@@ -12,7 +12,10 @@ class CargoCarriage < Carriage
   end
 
   def take_volume(volume)
-    raise "Указнный объём #{volume} превышает свободный объём вагона #{empty_volume}" if volume > empty_volume
+    if volume > empty_volume
+      raise ArgumentError,
+            "Указнный объём #{volume} превышает свободный объём вагона #{empty_volume}"
+    end
 
     @empty_volume -= volume
   end
