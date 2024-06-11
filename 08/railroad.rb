@@ -161,7 +161,6 @@ class Railroad
     puts 'Выберите станцию:'
     stations_list
     station = @stations[input_i]
-    # station.trains.each { |train| puts "#{train.number} #{train.type}" }
     station.trains_to_block do |train|
       puts "Номер: #{train.number} Тип: #{train.type} Вагонов: #{train.carriages.count}"
     end
@@ -221,7 +220,6 @@ class Railroad
   end
 
   def carriages_list(train)
-    # train.carriages.each_with_index { |carriage, index| puts "#{index}. #{carriage.type}" }
     case train.type
     when 'cargo'
       train.carriages_to_block do |carriage, number|
