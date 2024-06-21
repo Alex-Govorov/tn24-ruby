@@ -25,10 +25,3 @@ module Accessors
     end
   end
 end
-
-class Test
-  extend Accessors
-
-  strong_attr_accessor :test_attr, String
-  attr_accessor_with_history :name, :age
-end

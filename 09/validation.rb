@@ -47,17 +47,3 @@ module Validation
     end
   end
 end
-
-class Test
-  include Validation
-
-  attr_accessor :name, :number, :station
-
-  NUMBER_FORMAT ||= /^[a-zа-я0-9]{3}-*[a-zа-я0-9]{2}$/i.freeze
-
-  validate :name, :presence
-  validate :name, :type, String
-  validate :station, :type, Array
-  validate :number, :presence
-  validate :number, :format, NUMBER_FORMAT
-end
