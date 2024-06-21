@@ -6,9 +6,8 @@ class Station
   include InstanceCounter
   include Validation
   extend Accessors
-  attr_reader :trains
 
-  attr_accessor_with_history :name
+  attr_accessor_with_history :name, :trains
 
   validate :name, :presence
 
